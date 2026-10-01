@@ -1,0 +1,3816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Happy Birthday for Dear Sister 🌟</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+
+    /* =========================================================
+       BLACK LUXURY / SHINY THEME
+       ========================================================= */
+
+    :root {
+      --bg-midnight: #020204;
+      --bg-black: #000000;
+
+      --card-bg: rgba(14, 14, 18, 0.78);
+      --card-bg-light: rgba(24, 24, 29, 0.72);
+
+      --gold-primary: #f0d9a7;
+      --gold-light: #fff8e8;
+
+      --silver: #f4f4f4;
+      --silver-soft: #cfcfd5;
+
+      --pink-primary: #ff6f9f;
+      --pink-light: #ffb6cf;
+
+      --text-muted: #aaaab5;
+
+      --accent-glow: rgba(255, 182, 207, 0.28);
+      --silver-glow: rgba(255, 255, 255, 0.18);
+
+      --border-glass: rgba(255, 255, 255, 0.16);
+      --border-shine: rgba(255, 220, 235, 0.35);
+    }
+
+
+    /* =========================================================
+       GLOBAL
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 105, 155, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(255, 220, 160, 0.06), transparent 28%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.025), transparent 45%),
+        #000000;
+
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+
+      background:
+        linear-gradient(
+          120deg,
+          transparent 0%,
+          rgba(255,255,255,0.018) 35%,
+          transparent 50%,
+          rgba(255,150,190,0.018) 75%,
+          transparent 100%
+        );
+
+      animation: luxuryShimmer 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes luxuryShimmer {
+      from {
+        opacity: 0.35;
+        transform: translateX(-3%);
+      }
+
+      to {
+        opacity: 0.8;
+        transform: translateX(3%);
+      }
+    }
+
+    #stars-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+
+    /* =========================================================
+       FLOATING MUSIC CONTROL
+       ========================================================= */
+
+    .music-disk-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.16),
+          rgba(255,105,155,0.08),
+          rgba(0,0,0,0.7)
+        );
+
+      border: 1px solid rgba(255,255,255,0.45);
+
+      width: 50px;
+      height: 50px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 0 12px rgba(255,255,255,0.12),
+        0 0 28px rgba(255,105,155,0.22),
+        inset 0 0 15px rgba(255,255,255,0.06);
+
+      backdrop-filter: blur(12px);
+
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .music-disk-btn:hover {
+      transform: scale(1.08);
+
+      box-shadow:
+        0 0 18px rgba(255,255,255,0.2),
+        0 0 35px rgba(255,105,155,0.4),
+        inset 0 0 18px rgba(255,255,255,0.1);
+    }
+
+    .music-disk-btn.playing {
+      animation: rotateDisk 4s linear infinite;
+    }
+
+    @keyframes rotateDisk {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    /* =========================================================
+       MAIN WRAPPER
+       ========================================================= */
+
+    .wrapper {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px 20px;
+    }
+
+    .section-view {
+      display: none;
+
+      width: 100%;
+      max-width: 900px;
+
+      margin: 0 auto;
+
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .section-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    /* =========================================================
+       GLASS BOX
+       ========================================================= */
+
+    .glass-box {
+      position: relative;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.075),
+          rgba(255,255,255,0.025) 40%,
+          rgba(255,105,155,0.035),
+          rgba(0,0,0,0.55)
+        );
+
+      border: 1px solid rgba(255,255,255,0.16);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      border-radius: 28px;
+
+      padding: 45px 35px;
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,0.85),
+        0 0 45px rgba(255,105,155,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+    .glass-box::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -100%;
+
+      width: 70%;
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,0.7),
+          rgba(255,150,190,0.6),
+          transparent
+        );
+
+      animation: glassShine 7s ease-in-out infinite;
+    }
+
+    @keyframes glassShine {
+      0% {
+        left: -100%;
+      }
+
+      45%,
+      100% {
+        left: 130%;
+      }
+    }
+
+
+    /* =========================================================
+       TITLES
+       ========================================================= */
+
+    .title-cinzel {
+      font-family: 'Cinzel', serif;
+
+      letter-spacing: 2.5px;
+
+      color: var(--gold-light);
+
+      text-transform: uppercase;
+
+      margin-bottom: 12px;
+
+      text-shadow:
+        0 0 10px rgba(255,255,255,0.18),
+        0 0 25px rgba(255,105,155,0.18);
+    }
+
+
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
+
+    .btn-gold {
+      background:
+        linear-gradient(
+          120deg,
+          #ffffff 0%,
+          #f4e5c3 22%,
+          #ff9fbd 48%,
+          #ffffff 70%,
+          #d9d9df 100%
+        );
+
+      background-size: 250% 250%;
+
+      color: #09090c;
+
+      border: 1px solid rgba(255,255,255,0.75);
+
+      padding: 14px 34px;
+
+      font-size: 1rem;
+
+      font-weight: 700;
+
+      border-radius: 50px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 25px rgba(255,105,155,0.22),
+        0 0 20px rgba(255,255,255,0.12),
+        inset 0 1px 1px rgba(255,255,255,0.8);
+
+      transition: all 0.3s ease;
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
+
+      margin-top: 25px;
+
+      letter-spacing: 1px;
+
+      text-decoration: none;
+
+      animation: buttonShimmer 6s ease infinite;
+    }
+
+    @keyframes buttonShimmer {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px) scale(1.03);
+
+      box-shadow:
+        0 12px 35px rgba(255,105,155,0.35),
+        0 0 30px rgba(255,255,255,0.2);
+    }
+
+
+    /* =========================================================
+       DATE BADGE
+       ========================================================= */
+
+    .date-badge {
+      display: inline-block;
+
+      padding: 6px 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,0.08),
+          rgba(255,105,155,0.08)
+        );
+
+      border: 1px solid rgba(255,255,255,0.28);
+
+      border-radius: 30px;
+
+      font-size: 0.85rem;
+
+      letter-spacing: 2px;
+
+      color: #fff1df;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 0 15px rgba(255,105,155,0.08),
+        inset 0 0 10px rgba(255,255,255,0.03);
+    }
+
+
+    /* =========================================================
+       KEYPAD
+       ========================================================= */
+
+    .pin-display-wrap {
+      margin: 30px 0;
+    }
+
+    .pass-dots {
+      display: flex;
+      justify-content: center;
+
+      gap: 14px;
+
+      margin-bottom: 25px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+
+      border-radius: 50%;
+
+      border: 2px solid #f4d9b0;
+
+      transition: all 0.25s ease;
+
+      box-shadow: 0 0 8px rgba(255,255,255,0.08);
+    }
+
+    .dot.filled {
+      background: #ff9fbd;
+
+      border-color: #ffb6cf;
+
+      box-shadow:
+        0 0 12px #ff6f9f,
+        0 0 25px rgba(255,105,155,0.35);
+    }
+
+    .keypad {
+      display: grid;
+
+      grid-template-columns: repeat(3, 70px);
+
+      gap: 15px;
+
+      justify-content: center;
+
+      margin: 0 auto;
+    }
+
+    .key-btn {
+      width: 70px;
+      height: 70px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 30% 25%,
+          rgba(255,255,255,0.12),
+          rgba(255,255,255,0.035) 45%,
+          rgba(0,0,0,0.65)
+        );
+
+      border: 1px solid rgba(255,255,255,0.15);
+
+      color: #fff;
+
+      font-size: 1.4rem;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+
+      box-shadow:
+        0 5px 15px rgba(0,0,0,0.5),
+        inset 0 0 12px rgba(255,255,255,0.025);
+    }
+
+    .key-btn:hover {
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,105,155,0.25),
+          rgba(255,255,255,0.06)
+        );
+
+      border-color: #ff9fbd;
+
+      box-shadow:
+        0 0 20px rgba(255,105,155,0.3),
+        inset 0 0 15px rgba(255,255,255,0.06);
+
+      transform: scale(1.05);
+    }
+
+
+    /* =========================================================
+       MEMORY / TRAITS GRID
+       ========================================================= */
+
+    .memories-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 22px;
+
+      margin: 35px 0 25px;
+    }
+
+    .trait-card {
+      background: transparent;
+
+      height: 250px;
+
+      perspective: 1000px;
+
+      cursor: pointer;
+    }
+
+    .photo-flip-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+      gap: 18px;
+
+      margin: 30px 0 20px;
+    }
+
+    .photo-flip-card {
+      background: transparent;
+
+      height: 380px;
+
+      perspective: 1000px;
+
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       3D FLIP ENGINE
+       ========================================================= */
+
+    .flip-inner {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      text-align: center;
+
+      transition:
+        transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+
+      transform-style: preserve-3d;
+    }
+
+    .photo-flip-card:hover .flip-inner,
+    .trait-card:hover .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-front,
+    .flip-back {
+      position: absolute;
+
+      width: 100%;
+      height: 100%;
+
+      backface-visibility: hidden;
+
+      border-radius: 20px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(255,255,255,0.16);
+
+      overflow: hidden;
+    }
+
+    .flip-front {
+      background:
+        radial-gradient(
+          circle at 30% 20%,
+          rgba(255,255,255,0.12),
+          transparent 25%
+        ),
+        linear-gradient(
+          145deg,
+          #17171c,
+          #050507
+        );
+
+      padding: 24px 18px;
+
+      box-shadow:
+        inset 0 0 30px rgba(255,255,255,0.035),
+        0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .front-quote-icon {
+      font-size: 2.2rem;
+
+      filter:
+        drop-shadow(0 0 8px rgba(255,105,155,0.4));
+    }
+
+    .front-quote-title {
+      color: #fff0dc;
+
+      font-size: 1.15rem;
+
+      font-family: 'Cinzel', serif;
+
+      margin-bottom: 8px;
+
+      text-shadow:
+        0 0 12px rgba(255,255,255,0.12);
+    }
+
+    .front-quote-text {
+      font-size: 0.88rem;
+
+      line-height: 1.6;
+
+      color: #dfdfe5;
+
+      margin-bottom: 15px;
+    }
+
+    .disclose-btn-badge {
+      display: inline-block;
+
+      padding: 6px 14px;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,0.09),
+          rgba(255,105,155,0.09)
+        );
+
+      border: 1px solid rgba(255,182,207,0.45);
+
+      color: #ffe7d3;
+
+      font-size: 0.78rem;
+
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+
+      box-shadow:
+        0 0 12px rgba(255,105,155,0.15);
+    }
+
+    .flip-back {
+      background:
+        linear-gradient(
+          135deg,
+          #08080a,
+          #181219
+        );
+
+      transform: rotateY(180deg);
+
+      border-color: rgba(255,182,207,0.55);
+
+      box-shadow:
+        0 0 30px rgba(255,105,155,0.2);
+
+      padding: 0 !important;
+    }
+
+    .flip-back img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position: top center;
+
+      display: block;
+    }
+
+    .photo-revealed-tag {
+      position: absolute;
+
+      bottom: 12px;
+
+      left: 12px;
+      right: 12px;
+
+      background:
+        rgba(0,0,0,0.72);
+
+      border:
+        1px solid rgba(255,255,255,0.2);
+
+      backdrop-filter: blur(10px);
+
+      padding: 6px 8px;
+
+      border-radius: 12px;
+
+      font-size: 0.82rem;
+
+      color: #fff0dc;
+
+      font-weight: 600;
+
+      text-align: center;
+
+      box-shadow:
+        0 0 15px rgba(255,105,155,0.1);
+    }
+
+
+    /* =========================================================
+       SCRATCH CARD
+       ========================================================= */
+
+    .scratch-container {
+      position: relative;
+
+      width: 320px;
+      height: 180px;
+
+      margin: 30px auto;
+
+      border-radius: 16px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 10px 35px rgba(0,0,0,0.8),
+        0 0 20px rgba(255,255,255,0.08);
+    }
+
+    .secret-message {
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(255,105,155,0.12),
+          transparent 65%
+        ),
+        #0a0a0d;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 15px;
+
+      border: 2px dashed #f0d9a7;
+
+      border-radius: 16px;
+    }
+
+    #scratchCanvas {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      cursor: crosshair;
+    }
+
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    .modal-backdrop {
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      background:
+        rgba(0,0,0,0.9);
+
+      z-index: 999;
+
+      backdrop-filter: blur(14px);
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+
+    /* =========================================================
+       PARCHMENT LETTER
+       ========================================================= */
+
+    .parchment {
+      background:
+        linear-gradient(
+          135deg,
+          #fffdf8,
+          #f3eee4
+        );
+
+      color: #2b221a;
+
+      border-radius: 8px;
+
+      padding: 40px 35px;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.8),
+        0 0 25px rgba(255,220,170,0.15);
+
+      text-align: left;
+
+      line-height: 1.9;
+
+      font-size: 1.1rem;
+
+      border-left: 6px solid #ff9fbd;
+
+      font-family: 'Playfair Display', serif;
+    }
+
+
+    /* =========================================================
+       FLOATING BALLOONS
+       ========================================================= */
+
+    .balloon-layer {
+      position: fixed;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      z-index: 99;
+
+      overflow: hidden;
+
+      display: none;
+    }
+
+    .floating-balloon {
+      position: absolute;
+
+      bottom: -120px;
+
+      font-size: 2.8rem;
+
+      animation:
+        riseBalloon 7s ease-in forwards;
+
+      filter:
+        drop-shadow(0 4px 8px rgba(0,0,0,0.3))
+        drop-shadow(0 0 8px rgba(255,105,155,0.25));
+    }
+
+    @keyframes riseBalloon {
+      0% {
+        transform:
+          translateY(0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 0.9;
+      }
+
+      85% {
+        opacity: 0.9;
+      }
+
+      100% {
+        transform:
+          translateY(-115vh)
+          rotate(15deg);
+
+        opacity: 0;
+      }
+    }
+
+
+    /* =========================================================
+       TYPEWRITER
+       ========================================================= */
+
+    .typing-cursor {
+      display: inline-block;
+
+      width: 2px;
+
+      height: 1.1em;
+
+      background: #ff6f9f;
+
+      margin-left: 3px;
+
+      vertical-align: text-bottom;
+
+      animation:
+        blinkCursor 0.7s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+
+    /* =========================================================
+       ENVELOPE
+       ========================================================= */
+
+    .letter-envelope-state {
+      margin: 20px auto;
+    }
+
+    .envelope-icon {
+      font-size: 5.5rem;
+
+      cursor: pointer;
+
+      display: inline-block;
+
+      transition:
+        transform 0.3s;
+
+      animation:
+        gentleBounce 2s infinite ease-in-out;
+
+      filter:
+        drop-shadow(0 0 15px rgba(255,105,155,0.3));
+    }
+
+    @keyframes gentleBounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+
+    /* =========================================================
+       GIFT & WATCH SHOWCASE STYLES
+       ========================================================= */
+
+    .surprise-gift-box {
+      font-size: 6rem;
+
+      cursor: pointer;
+
+      display: inline-block;
+
+      margin: 25px auto 10px;
+
+      transition:
+        transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      user-select: none;
+
+      filter:
+        drop-shadow(0 0 20px rgba(255,105,155,0.35))
+        drop-shadow(0 0 35px rgba(255,255,255,0.12));
+    }
+
+    .surprise-gift-box:hover {
+      transform:
+        scale(1.15)
+        rotate(4deg);
+    }
+
+    .floating-poppers {
+      display: flex;
+
+      justify-content: center;
+
+      gap: 16px;
+
+      font-size: 2.2rem;
+
+      margin: 10px 0;
+    }
+
+    /* Luxury Watch Card & Unbox Animation */
+    .watch-showcase-box {
+      position: relative;
+      background: radial-gradient(circle at center, rgba(255, 111, 159, 0.12), transparent 70%), linear-gradient(145deg, #18151f, #09080c);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      border-radius: 24px;
+      padding: 28px 20px;
+      margin: 20px auto;
+      max-width: 420px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.8), 0 0 30px rgba(255, 182, 207, 0.22);
+      animation: watchFloatUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes watchFloatUp {
+      0% {
+        opacity: 0;
+        transform: scale(0.6) translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .watch-unboxed-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .watch-item-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 15px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .watch-aura-glow {
+      position: absolute;
+      inset: -15px;
+      background: radial-gradient(circle, rgba(255, 215, 120, 0.35), rgba(255, 111, 159, 0.2), transparent 70%);
+      border-radius: 50%;
+      animation: auraPulse 3s infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes auraPulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      100% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .luxury-watch-graphic {
+      position: relative;
+      z-index: 2;
+      width: 170px;
+      height: 170px;
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,0.8)) drop-shadow(0 0 18px rgba(255, 217, 167, 0.5));
+      animation: watchGentleHover 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes watchGentleHover {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    .watch-gift-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 111, 159, 0.2));
+      border: 1px solid #f0d9a7;
+      color: #fff4d9;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(240, 217, 167, 0.3);
+      margin-bottom: 10px;
+    }
+
+
+    /* =========================================================
+       CAKE
+       ========================================================= */
+
+    .cake-wrapper {
+      position: relative;
+
+      width: 280px;
+      height: 250px;
+
+      margin: 35px auto 25px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: flex-end;
+    }
+
+    .cake-base-plate {
+      width: 260px;
+
+      height: 14px;
+
+      background:
+        linear-gradient(
+          to right,
+          #d5d5da,
+          #ffffff,
+          #f0d9a7,
+          #ffffff,
+          #cfcfd5
+        );
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 10px 25px rgba(0,0,0,0.8),
+        0 0 20px rgba(255,255,255,0.1);
+
+      position: relative;
+
+      z-index: 1;
+    }
+
+    .cake-layer-bottom {
+      width: 220px;
+
+      height: 75px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #28212b 0%,
+          #08080b 100%
+        );
+
+      border-radius:
+        14px 14px 4px 4px;
+
+      border:
+        2px solid rgba(255,255,255,0.18);
+
+      position: relative;
+
+      box-shadow:
+        inset 0 8px 0 rgba(255,159,189,0.35),
+        0 0 20px rgba(255,105,155,0.12);
+
+      z-index: 2;
+    }
+
+    .cake-layer-top {
+      width: 155px;
+
+      height: 65px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #39303c 0%,
+          #111015 100%
+        );
+
+      border-radius:
+        14px 14px 4px 4px;
+
+      border:
+        2px solid rgba(255,255,255,0.18);
+
+      position: relative;
+
+      box-shadow:
+        inset 0 8px 0 rgba(255,159,189,0.42),
+        0 0 18px rgba(255,105,155,0.12);
+
+      z-index: 3;
+    }
+
+    .cake-candles-row {
+      position: absolute;
+
+      top: 15px;
+
+      display: flex;
+
+      gap: 24px;
+
+      z-index: 4;
+    }
+
+    .cake-candle {
+      width: 14px;
+
+      height: 65px;
+
+      background:
+        repeating-linear-gradient(
+          45deg,
+          #ffffff,
+          #ffffff 6px,
+          #ff9fbd 6px,
+          #ff9fbd 12px
+        );
+
+      border-radius:
+        4px 4px 0 0;
+
+      position: relative;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.5),
+        0 0 8px rgba(255,105,155,0.15);
+    }
+
+    .cake-candle:nth-child(2) {
+      height: 75px;
+
+      top: -10px;
+    }
+
+    .golden-flame {
+      position: absolute;
+
+      top: -24px;
+
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      width: 14px;
+
+      height: 24px;
+
+      background:
+        radial-gradient(
+          circle at 50% 80%,
+          #ffffff,
+          #ffdca8 50%,
+          #ff6f9f 90%
+        );
+
+      border-radius:
+        50% 50% 20% 20%;
+
+      box-shadow:
+        0 0 18px #ffd043,
+        0 0 30px #ff6f9f;
+
+      animation:
+        flickerLight 0.1s infinite alternate;
+
+      cursor: pointer;
+
+      transition:
+        all 0.5s ease;
+    }
+
+    @keyframes flickerLight {
+      0% {
+        transform:
+          translateX(-50%)
+          scale(1)
+          rotate(-1deg);
+      }
+
+      100% {
+        transform:
+          translateX(-50%)
+          scale(1.08)
+          rotate(1.5deg);
+      }
+    }
+
+    .flame-extinguished {
+      opacity: 0 !important;
+
+      transform:
+        translateX(-50%)
+        scale(0.2)
+        translateY(-10px) !important;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 600px) {
+
+      .wrapper {
+        padding:
+          25px 12px;
+      }
+
+      .glass-box {
+        padding:
+          32px 18px;
+        border-radius: 22px;
+      }
+
+      .title-cinzel {
+        letter-spacing: 1.5px;
+      }
+
+      .keypad {
+        grid-template-columns:
+          repeat(3, 62px);
+
+        gap: 12px;
+      }
+
+      .key-btn {
+        width: 62px;
+        height: 62px;
+      }
+
+      .photo-flip-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .photo-flip-card {
+        height: 360px;
+      }
+
+      .scratch-container {
+        width: 300px;
+        max-width: 100%;
+      }
+
+      #scratchCanvas {
+        width: 100%;
+        height: 100%;
+      }
+
+      .parchment {
+        padding: 28px 22px;
+        font-size: 1rem;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- Audio Element & Floating Toggle Disc -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src="birthday-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div
+    class="music-disk-btn"
+    id="musicToggleBtn"
+    onclick="toggleAudio()"
+    title="Play / Pause Music"
+  >
+    <span id="musicIcon" style="font-size: 1.3rem;">🎵</span>
+  </div>
+
+
+  <div class="wrapper">
+
+    <!-- =====================================================
+         1. CIPHER PORTAL
+         ===================================================== -->
+
+    <section
+      class="section-view active"
+      id="view-portal"
+    >
+
+      <div
+        class="glass-box"
+        style="max-width: 440px;"
+      >
+
+        <span class="date-badge">
+          From your sisters 🤍
+        </span>
+
+        <h1
+          class="title-cinzel"
+          style="font-size: 1.8rem;"
+        >
+          🎁 BIRTHDAY SURPRISE 🎉
+        </h1>
+
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 6px;
+          "
+        >
+          Enter the date code (0210)
+        </p>
+
+
+        <div class="pin-display-wrap">
+
+          <div class="pass-dots">
+
+            <div
+              class="dot"
+              id="dot-0"
+            ></div>
+
+            <div
+              class="dot"
+              id="dot-1"
+            ></div>
+
+            <div
+              class="dot"
+              id="dot-2"
+            ></div>
+
+            <div
+              class="dot"
+              id="dot-3"
+            ></div>
+
+          </div>
+
+
+          <div class="keypad">
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('1')"
+            >
+              1
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('2')"
+            >
+              2
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('3')"
+            >
+              3
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('4')"
+            >
+              4
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('5')"
+            >
+              5
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('6')"
+            >
+              6
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('7')"
+            >
+              7
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('8')"
+            >
+              8
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('9')"
+            >
+              9
+            </button>
+
+            <button
+              class="key-btn"
+              style="font-size: 1rem;"
+              onclick="resetPin()"
+            >
+              CLR
+            </button>
+
+            <button
+              class="key-btn"
+              onclick="enterDigit('0')"
+            >
+              0
+            </button>
+
+            <button
+              class="key-btn"
+              style="font-size: 1rem;"
+              onclick="checkPin()"
+            >
+              OK
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         2. MAIN CELEBRATION
+         ===================================================== -->
+
+    <section
+      class="section-view"
+      id="view-celebration"
+    >
+
+      <div class="glass-box">
+
+        <span class="date-badge">
+          October 2nd • Celebration
+        </span>
+
+        <h1
+          class="title-cinzel"
+          style="
+            font-size: 2.5rem;
+            color: #fff;
+          "
+        >
+          🎉 Happy Birthday 🎉
+
+          <div
+            style="
+              font-size: 1.9rem;
+              margin-top: 5px;
+            "
+          >
+            Azeem Bhai 💫
+          </div>
+
+        </h1>
+
+        <p
+          style="
+            color: var(--gold-light);
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-top: 8px;
+          "
+        >
+          "May your life always be filled with happiness, laughter, success, good health, and endless smiles.☆
+        </p>
+
+
+        <!-- TRAIT CARDS -->
+
+        <div class="memories-grid">
+
+
+          <div class="trait-card">
+
+            <div class="flip-inner">
+
+              <div class="flip-front">
+
+                <span style="font-size: 2.4rem;">
+                  ✨
+                </span>
+
+                <h3
+                  style="
+                    margin-top: 12px;
+                    color: var(--gold-light);
+                    font-size: 1.1rem;
+                  "
+                >
+                  🌟 Wisdom & Guidance
+                </h3>
+
+                <p
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-muted);
+                    margin-top: 6px;
+                  "
+                >
+                  (Hover)
+                </p>
+
+              </div>
+
+
+              <div
+                class="flip-back"
+                style="padding: 20px !important;"
+              >
+
+                <p
+                  style="
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    color: #fdfbf7;
+                  "
+                >
+                  Your calm perspective, practical advice, and balanced outlook always guide and inspire everyone around you. Truly grateful to have you as our brother. ✧✧✧
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="trait-card">
+
+            <div class="flip-inner">
+
+              <div class="flip-front">
+
+                <span style="font-size: 2.4rem;">
+                  🌙
+                </span>
+
+                <h3
+                  style="
+                    margin-top: 12px;
+                    color: var(--gold-light);
+                    font-size: 1.1rem;
+                  "
+                >
+                  👑Radiant Future
+                </h3>
+
+                <p
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-muted);
+                    margin-top: 6px;
+                  "
+                >
+                  (Hover)
+                </p>
+
+              </div>
+
+
+              <div
+                class="flip-back"
+                style="padding: 20px !important;"
+              >
+
+                <p
+                  style="
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    color: #fdfbf7;
+                  "
+                >
+                  May all your dreams and hard work turn into success, and may Allah bless your efforts, grant you respect, and reward your pure heart. ✬✬✬
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="trait-card">
+
+            <div class="flip-inner">
+
+              <div class="flip-front">
+
+                <span style="font-size: 2.4rem;">
+                  🌟
+                </span>
+
+                <h3
+                  style="
+                    margin-top: 12px;
+                    color: var(--gold-light);
+                    font-size: 1.1rem;
+                  "
+                >
+                  Grace & Ease 🕊️
+                </h3>
+
+                <p
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-muted);
+                    margin-top: 6px;
+                  "
+                >
+                  (Hover)
+                </p>
+
+              </div>
+
+
+              <div
+                class="flip-back"
+                style="padding: 20px !important;"
+              >
+
+                <p
+                  style="
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    color: #fdfbf7;
+                  "
+                >
+                  
+               May Allah make every step of your life easier, bless your hard work with success, and grant you the highest rank in Jannah. In sha Allah.☆☆☆
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <a
+          href="#photoGallery"
+          class="btn-gold"
+          style="
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            margin: 10px 0 35px;
+          "
+        >
+          ↓ Scroll To Photo Memories ↓
+        </a>
+
+
+        <!-- PHOTO GALLERY -->
+
+        <div
+          id="photoGallery"
+          style="
+            padding-top: 25px;
+            border-top: 1px dashed var(--border-glass);
+          "
+        >
+
+          <span class="date-badge">
+            TIMELESS CHRONICLES
+          </span>
+
+          <h2
+            class="title-cinzel"
+            style="
+              font-size: 1.8rem;
+              margin-top: 5px;
+            "
+          >
+            📸 Your Beautiful Memories 📸
+          </h2>
+
+          <p
+            style="
+              color: var(--text-muted);
+              font-size: 0.9rem;
+            "
+          >
+            Hover or tap any card to reveal the memory
+          </p>
+
+
+          <div class="photo-flip-grid">
+
+
+            <!-- PHOTO 1 -->
+
+            <div class="photo-flip-card">
+
+              <div class="flip-inner">
+
+                <div class="flip-front">
+
+                  <div class="front-quote-icon">
+                    🌸
+                  </div>
+
+                  <h4 class="front-quote-title">
+                    A Calm Perspective
+                  </h4>
+
+                  <p class="front-quote-text">
+                    "A quiet mind, a thoughtful perspective, and an admirable peace that naturally inspires everyone."
+                  </p>
+
+                  <span class="disclose-btn-badge">
+                    Disclose Memories ✦
+                  </span>
+
+                </div>
+
+
+                <div class="flip-back">
+
+                  <img
+                    src="images/photo1.jpeg"
+                    alt="Memory 1"
+                    style="object-position: center 15%;"
+                  >
+
+                  <div class="photo-revealed-tag">
+                    Pure Light ✨
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+<!-- PHOTO 2 -->
+
+            <div class="photo-flip-card">
+
+              <div class="flip-inner">
+
+                <div class="flip-front">
+
+                  <div class="front-quote-icon">
+                    💫
+                  </div>
+
+                  <h4 class="front-quote-title">
+                    Grace & Harmony
+                  </h4>
+
+                  <p class="front-quote-text">
+                    "Seeing you both happy and thriving together brings so much joy and peace to all our hearts."
+                  </p>
+
+                  <span class="disclose-btn-badge">
+                    Disclose Memories ✦
+                  </span>
+
+                </div>
+
+
+                <div
+                  class="flip-back"
+                  style="
+                    background: #09090c;
+                    overflow: hidden;
+                    position: relative;
+                  "
+                >
+
+                  <img
+                    src="images/photo2.jpeg"
+                    alt="Memory 2"
+                    style="
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      object-position: center 30%;
+                      transform: scale(1.30);
+                    "
+                  >
+
+                  <div class="photo-revealed-tag">
+                    Cherished Forever 💖
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- PHOTO 3 -->
+
+            <div class="photo-flip-card">
+
+              <div class="flip-inner">
+
+                <div class="flip-front">
+
+                  <div class="front-quote-icon">
+                    🌟
+                  </div>
+
+                  <h4 class="front-quote-title">
+                    May Allah Bless You
+                  </h4>
+
+                  <p class="front-quote-text">
+                    "May Allah grant you immense success in every path you take, protect you, and bless your hard work with the best rewards."
+                  </p>
+
+                  <span class="disclose-btn-badge">
+                    Disclose Memories ✦
+                  </span>
+
+                </div>
+
+
+                <div
+                  class="flip-back"
+                  style="
+                    background: #09090c;
+                    overflow: hidden;
+                    position: relative;
+                  "
+                >
+
+                  <img
+                    src="images/photo3.jpeg"
+                    alt="Memory 3"
+                    style="
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      object-position: center 25%;
+                      transform: scale(1.35);
+                    "
+                  >
+
+                  <div class="photo-revealed-tag">
+                    Dignity & Grace 💖
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          
+
+
+
+            <!-- PHOTO 4 -->
+
+            <div class="photo-flip-card">
+
+              <div class="flip-inner">
+
+                <div class="flip-front">
+
+                  <div class="front-quote-icon">
+                    🌟
+                  </div>
+
+                  <h4 class="front-quote-title">
+                    A Blessed Beginning
+                  </h4>
+
+                  <p class="front-quote-text">
+                    "A day of answered prayers, welcoming you into our family not just as a brother-in-law, but as our brother."
+                  </p>
+                  </p>
+
+                  <span class="disclose-btn-badge">
+                    Disclose Memories ✦
+                  </span>
+
+                </div>
+
+
+                <div class="flip-back">
+
+                  <img
+                    src="images/photo4.jpeg"
+                    alt="Memory 4"
+                    style="object-position: center 15%;"
+                  >
+
+                  <div class="photo-revealed-tag">
+                    Tied In Barakah 🤍
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- PHOTO 5 -->
+
+            <div class="photo-flip-card">
+
+              <div class="flip-inner">
+
+                <div class="flip-front">
+
+                  <div class="front-quote-icon">
+                    💖
+                  </div>
+
+                  <h4 class="front-quote-title">
+                    Precious Bond
+                  </h4>
+
+                  <p class="front-quote-text">
+                    "Thank you for being such a caring partner to our sister and a wonderful, supportive elder brother to us."
+                  </p>
+
+                  <span class="disclose-btn-badge">
+                    Disclose Memories ✦
+                  </span>
+
+                </div>
+
+
+                <div
+                  class="flip-back"
+                  style="
+                    background: #09090c;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+
+                  <img
+                    src="images/photo5.jpeg"
+                    alt="Memory 5"
+                    style="
+                      width: 100%;
+                      height: auto;
+                      max-height: 100%;
+                      object-fit: contain;
+                    "
+                  >
+
+                  <div class="photo-revealed-tag">
+                    MashaAllah ✦✦✦✦✦
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="btn-gold"
+          onclick="goTo('view-scratch')"
+        >
+          Unlock The Star Secret ➜
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         3. SCRATCH CARD
+         ===================================================== -->
+
+    <section
+      class="section-view"
+      id="view-scratch"
+    >
+
+      <div
+        class="glass-box"
+        style="max-width: 540px;"
+      >
+
+        <span class="date-badge">
+          OFFICIAL NOTICE ⚠️
+        </span>
+
+        <h2
+          class="title-cinzel"
+          style="font-size: 1.7rem;"
+        >
+          The Secret Scratch Voucher
+        </h2>
+
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.95rem;
+          "
+        >
+          Scratch off the golden seal to unlock your surprise reward!
+        </p>
+
+
+        <div class="scratch-container">
+
+          <div class="secret-message">
+
+            <h4
+              style="
+                color: var(--gold-light);
+                font-size: 1.15rem;
+                margin-bottom: 6px;
+              "
+            >
+              🎉 YOU WON: FREE TREAT! 🍕
+            </h4>
+
+            <p
+              style="
+                color: #e5e5eb;
+                font-size: 0.92rem;
+                line-height: 1.5;
+                text-align: center;
+              "
+            >
+              Congratulations! You are officially liable to give our sister a grand birthday treat! 😋🍗🍨🍩🧋😋
+            </p>
+
+          </div>
+
+          <canvas
+            id="scratchCanvas"
+            width="320"
+            height="180"
+          ></canvas>
+
+        </div>
+
+
+        <div
+          id="scratchActionButtons"
+          style="
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            opacity: 0.35;
+            pointer-events: none;
+            transition: opacity 0.3s;
+          "
+        >
+
+          <button
+            class="btn-gold"
+            style="
+              background:
+                linear-gradient(
+                  135deg,
+                  #35343b,
+                  #151519
+                );
+              color: #e5e5eb;
+              border: 1px solid var(--border-glass);
+            "
+            onclick="openRefusalModal()"
+          >
+            I Don't Want To Give 🙅‍♀️️
+          </button>
+
+          <button
+            class="btn-gold"
+            onclick="goTo('view-letter')"
+          >
+            Accept Fate & Continue (¬_¬)
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         4. LETTER
+         ===================================================== -->
+
+    <section
+      class="section-view"
+      id="view-letter"
+    >
+
+      <div
+        class="glass-box"
+        style="max-width: 680px;"
+      >
+
+        <h2
+          class="title-cinzel"
+          style="
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+          "
+        >
+          A Letter Bound In Time
+        </h2>
+
+
+        <div
+          id="envelopeTriggerZone"
+          class="letter-envelope-state"
+        >
+
+          <div
+            class="envelope-icon"
+            onclick="openAndStreamLetter()"
+          >
+            💌
+          </div>
+
+          <p
+            style="
+              color: var(--text-muted);
+              font-size: 0.95rem;
+              margin-top: 10px;
+            "
+          >
+            A sealed message has arrived for you...
+          </p>
+
+          <button
+            class="btn-gold"
+            style="margin-top: 15px;"
+            onclick="openAndStreamLetter()"
+          >
+            Open Letter 💌
+          </button>
+
+        </div>
+
+
+        <div
+          id="parchmentSheet"
+          class="parchment"
+          style="
+            display: none;
+            min-height: 250px;
+          "
+        >
+
+          <div
+            id="letterStreamTarget"
+            style="
+              white-space: pre-line;
+              line-height: 1.9;
+            "
+          ></div>
+
+          <span
+            id="typeCursor"
+            class="typing-cursor"
+          ></span>
+
+        </div>
+
+
+        <button
+          class="btn-gold"
+          id="letterNextBtn"
+          style="
+            display: none;
+            margin-top: 25px;
+          "
+          onclick="goTo('view-extra-surprise')"
+        >
+          One More Surprise 🎁 ➜
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FLOATING BALLOONS -->
+
+    <div
+      id="balloonSky"
+      class="balloon-layer"
+    ></div>
+
+
+    <!-- =====================================================
+         5. EXTRA SURPRISE (UPGRADED WITH LUXURY WATCH UNBOX)
+         ===================================================== -->
+
+    <section
+      class="section-view"
+      id="view-extra-surprise"
+    >
+
+      <div
+        class="glass-box"
+        style="max-width: 600px;"
+      >
+
+        <span class="date-badge">
+          EXCLUSIVE BONUS
+        </span>
+
+        <h1
+          class="title-cinzel"
+          style="font-size: 2.1rem;"
+        >
+          🎁 One More Surprise, from your Sisters🎁
+        </h1>
+
+
+       
+
+
+        <div
+          id="surpriseBox"
+          class="surprise-gift-box"
+          onclick="revealExtraSurprise()"
+          title="Tap to unbox your birthday gift!"
+        >
+          🎁
+        </div>
+
+
+        <p
+          id="boxHintText"
+          style="
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 10px;
+            font-weight: 600;
+          "
+        >
+          Tap the gift box to unwrap your special gift! ✨
+        </p>
+
+
+        <!-- REVEALED CONTENT: LUXURY WATCH & BIRTHDAY GIFT TITLE -->
+
+        <div
+          id="surpriseRevealZone"
+          style="
+            display: none;
+            margin-top: 15px;
+          "
+        >
+
+          
+
+          <!-- Shiny Watch Unbox Showcase Card -->
+          <div class="watch-showcase-box">
+            
+            <div class="watch-gift-badge">
+              ✨ Special Birthday Gift ✨
+            </div>
+
+            <h3
+              class="title-cinzel"
+              style="
+                font-size: 1.45rem;
+                color: var(--gold-light);
+                margin: 6px 0 10px;
+              "
+            >
+              Timeless Elegance For You ⌚
+            </h3>
+
+            <!-- 3D Luxury Watch Illustration in Rose-Gold & Onyx -->
+            <div class="watch-item-container">
+              <div class="watch-aura-glow"></div>
+              
+              <svg class="luxury-watch-graphic" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- Mesh Gold Gradient -->
+                  <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff5dd"/>
+                    <stop offset="25%" stop-color="#f5d496"/>
+                    <stop offset="50%" stop-color="#e5b46a"/>
+                    <stop offset="75%" stop-color="#ff9fbd"/>
+                    <stop offset="100%" stop-color="#d69b4c"/>
+                  </linearGradient>
+
+                  <!-- Dial Noir Gradient -->
+                  <radialGradient id="dialNoir" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#2a222e"/>
+                    <stop offset="60%" stop-color="#121016"/>
+                    <stop offset="100%" stop-color="#050406"/>
+                  </radialGradient>
+
+                  <!-- Glass Sheen Gradient -->
+                  <linearGradient id="glassShine" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
+                    <stop offset="40%" stop-color="#ffffff" stop-opacity="0.08"/>
+                    <stop offset="60%" stop-color="transparent"/>
+                    <stop offset="100%" stop-color="#ffb6cf" stop-opacity="0.25"/>
+                  </linearGradient>
+
+                  <filter id="watchGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.7"/>
+                  </filter>
+                </defs>
+
+                <!-- Top Strap (Mesh Rose-Gold Links) -->
+                <rect x="75" y="6" width="50" height="52" rx="7" fill="url(#goldGradient)" filter="url(#watchGlow)"/>
+                <line x1="75" y1="18" x2="125" y2="18" stroke="#a47230" stroke-width="1.5"/>
+                <line x1="75" y1="30" x2="125" y2="30" stroke="#a47230" stroke-width="1.5"/>
+                <line x1="75" y1="42" x2="125" y2="42" stroke="#a47230" stroke-width="1.5"/>
+
+                <!-- Bottom Strap -->
+                <rect x="75" y="142" width="50" height="52" rx="7" fill="url(#goldGradient)" filter="url(#watchGlow)"/>
+                <line x1="75" y1="154" x2="125" y2="154" stroke="#a47230" stroke-width="1.5"/>
+                <line x1="75" y1="166" x2="125" y2="166" stroke="#a47230" stroke-width="1.5"/>
+                <line x1="75" y1="178" x2="125" y2="178" stroke="#a47230" stroke-width="1.5"/>
+
+                <!-- Watch Case (Outer Bezel) -->
+                <circle cx="100" cy="100" r="54" fill="url(#goldGradient)" filter="url(#watchGlow)"/>
+                
+                <!-- Crown (Side adjustment button) -->
+                <rect x="153" y="93" width="7" height="14" rx="2" fill="url(#goldGradient)"/>
+
+                <!-- Inner Dial Frame -->
+                <circle cx="100" cy="100" r="47" fill="#141118"/>
+                <circle cx="100" cy="100" r="44" fill="url(#dialNoir)"/>
+
+                <!-- Hour Tick Marks -->
+                <line x1="100" y1="60" x2="100" y2="67" stroke="#fbe8be" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="100" y1="133" x2="100" y2="140" stroke="#fbe8be" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="60" y1="100" x2="67" y2="100" stroke="#fbe8be" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="133" y1="100" x2="140" y2="100" stroke="#fbe8be" stroke-width="2.5" stroke-linecap="round"/>
+
+                <!-- Subtle Roman Indices Dots -->
+                <circle cx="120" cy="65" r="1.5" fill="#f5d496"/>
+                <circle cx="135" cy="80" r="1.5" fill="#f5d496"/>
+                <circle cx="135" cy="120" r="1.5" fill="#f5d496"/>
+                <circle cx="120" cy="135" r="1.5" fill="#f5d496"/>
+                <circle cx="80" cy="135" r="1.5" fill="#f5d496"/>
+                <circle cx="65" cy="120" r="1.5" fill="#f5d496"/>
+                <circle cx="65" cy="80" r="1.5" fill="#f5d496"/>
+                <circle cx="80" cy="65" r="1.5" fill="#f5d496"/>
+
+                <!-- Crystal Diamante at 12 o'clock -->
+                <polygon points="100,68 103,72 100,76 97,72" fill="#ffffff"/>
+
+                <!-- Watch Hands (Showing Happy Hour) -->
+                <!-- Hour hand -->
+                <line x1="100" y1="100" x2="84" y2="85" stroke="#f0d9a7" stroke-width="3" stroke-linecap="round"/>
+                <!-- Minute hand -->
+                <line x1="100" y1="100" x2="122" y2="76" stroke="#fff8e8" stroke-width="2" stroke-linecap="round"/>
+                <!-- Seconds Hand in Rose-Pink -->
+                <line x1="100" y1="108" x2="100" y2="67" stroke="#ff6f9f" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="100" cy="100" r="3.5" fill="#ff6f9f"/>
+
+                <!-- Luxury Glass Crystal Reflection -->
+                <path d="M 64 85 Q 100 56 136 85 C 130 65 110 56 100 56 C 85 56 70 68 64 85 Z" fill="url(#glassShine)"/>
+              </svg>
+            </div>
+
+            <p
+              style="
+                color: #e5e5eb;
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin-top: 10px;
+              "
+            >
+              "May every second of your life be filled with sparkle, joy, and success.✨
+            </p>
+
+          </div>
+
+
+          <h2
+            class="title-cinzel"
+            style="
+              font-size: 2rem;
+              color: #fff;
+              margin: 18px 0 10px;
+            "
+          >
+            Birthday Gift<br>
+
+            <span style="color: var(--gold-light);">
+              From Sara & Madiha
+            </span>
+
+          </h2>
+
+
+          <div
+            style="
+              font-size: 1.8rem;
+              margin: 12px 0 20px;
+            "
+          >
+            💐
+          </div>
+
+
+          <button
+            class="btn-gold"
+            onclick="goTo('view-cake')"
+          >
+            Time For The Cake 🎂 ➜
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         6. CAKE
+         ===================================================== -->
+
+    <section
+      class="section-view"
+      id="view-cake"
+    >
+
+      <div
+        class="glass-box"
+        style="max-width: 600px;"
+      >
+
+        <span class="date-badge">
+          🎂 CELEBRATION TIME 🎂
+        </span>
+
+        <h2
+          class="title-cinzel"
+          style="font-size: 1.9rem;"
+        >
+          Happy Birthday Azeem Bhai 🎂
+        </h2>
+
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 8px;
+          "
+        >
+          Close your eyes, make a Dua and blow the candle... ✨
+        </p>
+
+
+        <!-- CAKE -->
+
+        <div
+          class="cake-wrapper"
+          onclick="snuffCandle()"
+          style="cursor: pointer;"
+        >
+
+          <div class="cake-candles-row">
+
+            <div class="cake-candle">
+
+              <div
+                class="golden-flame flame-target"
+              ></div>
+
+            </div>
+
+
+            <div class="cake-candle">
+
+              <div
+                class="golden-flame flame-target"
+              ></div>
+
+            </div>
+
+
+            <div class="cake-candle">
+
+              <div
+                class="golden-flame flame-target"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div class="cake-layer-top"></div>
+
+          <div class="cake-layer-bottom"></div>
+
+          <div class="cake-base-plate"></div>
+
+        </div>
+
+
+        <p
+          id="candleStatus"
+          style="
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            min-height: 28px;
+            font-weight: 600;
+            margin-top: 15px;
+          "
+        ></p>
+
+
+        <button
+          class="btn-gold"
+          id="blowBtn"
+          onclick="snuffCandle()"
+        >
+          Blow Out Candle 🕯️
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- =====================================================
+       REFUSAL MODAL
+       ===================================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="refusalModal"
+    onclick="closeRefusalModal()"
+  >
+
+    <div
+      class="glass-box"
+      style="
+        max-width: 440px;
+        border-color: #ff4d6d;
+        box-shadow:
+          0 0 35px rgba(255,77,109,0.4);
+      "
+      onclick="event.stopPropagation()"
+    >
+
+      <div
+        style="
+          font-size: 4rem;
+          margin-bottom: 10px;
+        "
+      >
+        😡 😾
+      </div>
+
+
+      <h2
+        class="title-cinzel"
+        style="
+          color: #ff6b8b;
+          font-size: 1.6rem;
+          margin-bottom: 10px;
+        "
+      >
+        ACTION PROHIBITED!
+      </h2>
+
+
+      <p
+        style="
+          color: #ffffff;
+          font-size: 1.05rem;
+          font-weight: 700;
+          margin-bottom: 12px;
+        "
+      >
+        Nice try, but system error 404: "NO" option not found! 😤
+      </p>
+
+
+      <div
+        style="
+          background: rgba(255,77,109,0.12);
+          border: 1px dashed #ff4d6d;
+          border-radius: 12px;
+          padding: 14px;
+          margin-bottom: 22px;
+        "
+      >
+
+        <p
+          style="
+            font-size: 0.92rem;
+            color: #ffccd5;
+            line-height: 1.6;
+          "
+        >
+
+          <strong>
+            Terms & Conditions:
+          </strong>
+
+          <br>
+
+          No refunds, no returns, and strictly no excuses accepted under Section 409 of Fmily Laws! 📜🚫
+
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn-gold"
+        style="
+          background:
+            linear-gradient(
+              135deg,
+              #ff4d6d,
+              #c9184a
+            );
+          color: white;
+        "
+        onclick="closeRefusalModal()"
+      >
+        Go Back 🥺
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script>
+
+    /* =====================================================
+       1. SHINY STAR BACKGROUND
+       ===================================================== */
+
+    const canvas =
+      document.getElementById('stars-canvas');
+
+    const ctx =
+      canvas.getContext('2d');
+
+    let stars = [];
+
+
+    function resizeCanvas() {
+
+      canvas.width =
+        window.innerWidth;
+
+      canvas.height =
+        window.innerHeight;
+
+      stars = [];
+
+      for (let i = 0; i < 110; i++) {
+
+        stars.push({
+
+          x:
+            Math.random() *
+            canvas.width,
+
+          y:
+            Math.random() *
+            canvas.height,
+
+          radius:
+            Math.random() * 1.8,
+
+          alpha:
+            Math.random(),
+
+          speed:
+            0.005 +
+            Math.random() * 0.015
+
+        });
+
+      }
+
+    }
+
+
+    window.addEventListener(
+      'resize',
+      resizeCanvas
+    );
+
+    resizeCanvas();
+
+
+    function renderStars() {
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      for (let s of stars) {
+
+        s.alpha += s.speed;
+
+        if (
+          s.alpha > 1 ||
+          s.alpha < 0
+        ) {
+          s.speed = -s.speed;
+        }
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+          s.x,
+          s.y,
+          s.radius,
+          0,
+          Math.PI * 2
+        );
+
+
+        /*
+          BLACK THEME:
+          Alternating champagne-white
+          and soft pink stars
+        */
+
+        const isPink =
+          Math.floor(s.x + s.y) % 5 === 0;
+
+
+        ctx.fillStyle =
+          isPink
+
+            ? `rgba(255, 130, 175, ${Math.abs(s.alpha)})`
+
+            : `rgba(255, 245, 220, ${Math.abs(s.alpha)})`;
+
+
+        ctx.shadowBlur = 8;
+
+        ctx.shadowColor =
+          isPink
+            ? 'rgba(255,105,155,0.6)'
+            : 'rgba(255,255,255,0.45)';
+
+        ctx.fill();
+
+      }
+
+
+      requestAnimationFrame(
+        renderStars
+      );
+
+    }
+
+
+    renderStars();
+
+
+    /* =====================================================
+       2. BACKGROUND MUSIC ENGINE
+       ===================================================== */
+
+    const bgAudio =
+      document.getElementById('bgAudio');
+
+    const musicToggleBtn =
+      document.getElementById('musicToggleBtn');
+
+    const musicIcon =
+      document.getElementById('musicIcon');
+
+    let isPlaying = false;
+
+
+    function playMusic() {
+
+      if (!isPlaying) {
+
+        bgAudio.volume = 0.55;
+
+        bgAudio
+          .play()
+          .then(() => {
+
+            isPlaying = true;
+
+            musicToggleBtn.classList.add(
+              'playing'
+            );
+
+            musicIcon.innerText = '🎶';
+
+          })
+          .catch(() => {
+
+            // Audio will wait for click
+
+          });
+
+      }
+
+    }
+
+
+    function toggleAudio() {
+
+      if (isPlaying) {
+
+        bgAudio.pause();
+
+        isPlaying = false;
+
+        musicToggleBtn.classList.remove(
+          'playing'
+        );
+
+        musicIcon.innerText = '🔇';
+
+      } else {
+
+        bgAudio.play();
+
+        isPlaying = true;
+
+        musicToggleBtn.classList.add(
+          'playing'
+        );
+
+        musicIcon.innerText = '🎶';
+
+      }
+
+    }
+
+
+    /* =====================================================
+       3. STAGE NAVIGATION
+       ===================================================== */
+
+    function goTo(viewId) {
+
+      document
+        .querySelectorAll('.section-view')
+        .forEach(
+          v =>
+            v.classList.remove('active')
+        );
+
+
+      const target =
+        document.getElementById(viewId);
+
+
+      if (target) {
+
+        target.classList.add('active');
+
+      }
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+
+      if (
+        viewId === 'view-scratch'
+      ) {
+
+        initScratch();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       4. PIN ENTRY
+       ===================================================== */
+
+    let currentCode = "";
+
+    const targetCode = "0210";
+
+
+    function enterDigit(d) {
+
+      if (
+        currentCode.length < 4
+      ) {
+
+        currentCode += d;
+
+        updateDots();
+
+      }
+
+
+      if (
+        currentCode.length === 4
+      ) {
+
+        setTimeout(
+          checkPin,
+          200
+        );
+
+      }
+
+    }
+
+
+    function resetPin() {
+
+      currentCode = "";
+
+      updateDots();
+
+    }
+
+
+    function updateDots() {
+
+      for (
+        let i = 0;
+        i < 4;
+        i++
+      ) {
+
+        const dot =
+          document.getElementById(
+            `dot-${i}`
+          );
+
+
+        if (
+          i < currentCode.length
+        ) {
+
+          dot.classList.add(
+            'filled'
+          );
+
+        } else {
+
+          dot.classList.remove(
+            'filled'
+          );
+
+        }
+
+      }
+
+    }
+
+
+    function checkPin() {
+
+      if (
+        currentCode === targetCode
+      ) {
+
+        playMusic();
+
+
+        confetti({
+
+          particleCount: 90,
+
+          spread: 70,
+
+          origin: {
+            y: 0.6
+          },
+
+          colors: [
+            '#ffffff',
+            '#ff9fbd',
+            '#f0d9a7',
+            '#ff6f9f'
+          ]
+
+        });
+
+
+        goTo(
+          'view-celebration'
+        );
+
+      } else {
+
+        navigator.vibrate?.(200);
+
+        resetPin();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       5. SHINY SCRATCH CARD
+       ===================================================== */
+
+    let scratchInitialized =
+      false;
+
+
+    function initScratch() {
+
+      if (
+        scratchInitialized
+      ) return;
+
+
+      scratchInitialized =
+        true;
+
+
+      const sCanvas =
+        document.getElementById(
+          'scratchCanvas'
+        );
+
+
+      const sCtx =
+        sCanvas.getContext(
+          '2d'
+        );
+
+
+      /*
+        Shiny silver/pink scratch surface
+      */
+
+      const grad =
+        sCtx.createLinearGradient(
+          0,
+          0,
+          320,
+          180
+        );
+
+
+      grad.addColorStop(
+        0,
+        '#8e8e96'
+      );
+
+      grad.addColorStop(
+        0.2,
+        '#f7f7f8'
+      );
+
+      grad.addColorStop(
+        0.45,
+        '#ffb0c9'
+      );
+
+      grad.addColorStop(
+        0.65,
+        '#ffffff'
+      );
+
+      grad.addColorStop(
+        1,
+        '#76767e'
+      );
+
+
+      sCtx.fillStyle =
+        grad;
+
+      sCtx.fillRect(
+        0,
+        0,
+        320,
+        180
+      );
+
+
+      sCtx.font =
+        'bold 15px "Plus Jakarta Sans"';
+
+
+      sCtx.fillStyle =
+        '#16161a';
+
+
+      sCtx.textAlign =
+        'center';
+
+
+      sCtx.fillText(
+        '★ SCRATCH FOR YOUR REWARD ★',
+        160,
+        95
+      );
+
+
+      let isDrawing =
+        false;
+
+      let clearedPixels =
+        0;
+
+
+      function scratch(e) {
+
+        if (!isDrawing)
+          return;
+
+
+        const rect =
+          sCanvas.getBoundingClientRect();
+
+
+        const clientX =
+          e.clientX ||
+          (
+            e.touches &&
+            e.touches[0].clientX
+          );
+
+
+        const clientY =
+          e.clientY ||
+          (
+            e.touches &&
+            e.touches[0].clientY
+          );
+
+
+        const x =
+          clientX -
+          rect.left;
+
+
+        const y =
+          clientY -
+          rect.top;
+
+
+        sCtx.globalCompositeOperation =
+          'destination-out';
+
+
+        sCtx.beginPath();
+
+
+        sCtx.arc(
+          x,
+          y,
+          22,
+          0,
+          Math.PI * 2
+        );
+
+
+        sCtx.fill();
+
+
+        clearedPixels++;
+
+
+        if (
+          clearedPixels > 35
+        ) {
+
+          const btnGroup =
+            document.getElementById(
+              'scratchActionButtons'
+            );
+
+
+          if (btnGroup) {
+
+            btnGroup.style.opacity =
+              "1";
+
+            btnGroup.style.pointerEvents =
+              "auto";
+
+          }
+
+        }
+
+      }
+
+
+      sCanvas.addEventListener(
+        'mousedown',
+        () =>
+          isDrawing = true
+      );
+
+
+      window.addEventListener(
+        'mouseup',
+        () =>
+          isDrawing = false
+      );
+
+
+      sCanvas.addEventListener(
+        'mousemove',
+        scratch
+      );
+
+
+      sCanvas.addEventListener(
+        'touchstart',
+        e => {
+
+          isDrawing = true;
+
+          scratch(e);
+
+        }
+      );
+
+
+      window.addEventListener(
+        'touchend',
+        () =>
+          isDrawing = false
+      );
+
+
+      sCanvas.addEventListener(
+        'touchmove',
+        scratch
+      );
+
+    }
+
+
+    function openRefusalModal() {
+
+      document
+        .getElementById(
+          'refusalModal'
+        )
+        .classList.add(
+          'open'
+        );
+
+    }
+
+
+    function closeRefusalModal() {
+
+      document
+        .getElementById(
+          'refusalModal'
+        )
+        .classList.remove(
+          'open'
+        );
+
+    }
+
+
+    /* =====================================================
+       6. STREAMING LETTER
+       ===================================================== */
+
+    const fullLetterMessage =
+
+`💌 Dear Azeem Bhai.......
+
+Wishing you a very Happy Birthday! 🎂✨
+
+May Allah bless you with good health, long life, and endless happiness. May He make every step of life easy for you and our dear sister, fill your home with peace and barakah, and grant grand success to both of you in everything you do. 
+
+Thank you for always being such a supportive, caring, and inspiring elder brother to us.
+
+Happy Birthday Azeem Bhai! 🌟
+
+🤲 Always in our prayers ✨`;
+
+
+    let letterStreamingStarted =
+      false;
+
+
+    function openAndStreamLetter() {
+
+      if (
+        letterStreamingStarted
+      ) return;
+
+
+      letterStreamingStarted =
+        true;
+
+
+      document.getElementById(
+        'envelopeTriggerZone'
+      ).style.display =
+        'none';
+
+
+      const parchment =
+        document.getElementById(
+          'parchmentSheet'
+        );
+
+
+      parchment.style.display =
+        'block';
+
+
+      launchBalloons();
+
+
+      const target =
+        document.getElementById(
+          'letterStreamTarget'
+        );
+
+
+      const cursor =
+        document.getElementById(
+          'typeCursor'
+        );
+
+
+      const nextBtn =
+        document.getElementById(
+          'letterNextBtn'
+        );
+
+
+      const words =
+        fullLetterMessage.split(
+          " "
+        );
+
+
+      let wordIndex = 0;
+
+
+      const streamTimer =
+        setInterval(() => {
+
+
+          if (
+            wordIndex <
+            words.length
+          ) {
+
+            target.innerText +=
+              (
+                wordIndex === 0
+                  ? ""
+                  : " "
+              ) +
+              words[wordIndex];
+
+
+            wordIndex++;
+
+          } else {
+
+            clearInterval(
+              streamTimer
+            );
+
+
+            cursor.style.display =
+              'none';
+
+
+            nextBtn.style.display =
+              'inline-flex';
+
+
+            confetti({
+
+              particleCount: 90,
+
+              spread: 80,
+
+              origin: {
+                y: 0.6
+              },
+
+              colors: [
+                '#ffffff',
+                '#ff9fbd',
+                '#f0d9a7'
+              ]
+
+            });
+
+          }
+
+        }, 95);
+
+    }
+
+
+    function launchBalloons() {
+
+      const sky =
+        document.getElementById(
+          'balloonSky'
+        );
+
+
+      sky.style.display =
+        'block';
+
+
+      const balloonEmojis = [
+        '🎈',
+        '🎈',
+        '🤍',
+        '🎈',
+        '✨',
+        '🎈'
+      ];
+
+
+      for (
+        let i = 0;
+        i < 18;
+        i++
+      ) {
+
+        setTimeout(() => {
+
+          const b =
+            document.createElement(
+              'div'
+            );
+
+
+          b.className =
+            'floating-balloon';
+
+
+          b.innerText =
+            balloonEmojis[
+              Math.floor(
+                Math.random() *
+                balloonEmojis.length
+              )
+            ];
+
+
+          b.style.left =
+            (
+              5 +
+              Math.random() *
+              88
+            ) +
+            'vw';
+
+
+          b.style.animationDuration =
+            (
+              5 +
+              Math.random() *
+              3
+            ) +
+            's';
+
+
+          sky.appendChild(b);
+
+
+          setTimeout(
+            () =>
+              b.remove(),
+            7500
+          );
+
+        }, i * 320);
+
+      }
+
+    }
+
+
+    /* =====================================================
+       7. EXTRA SURPRISE (UNBOXING WATCH REVEAL)
+       ===================================================== */
+
+    let surpriseOpened = false;
+
+    function revealExtraSurprise() {
+
+      if (surpriseOpened) return;
+
+      surpriseOpened = true;
+
+      const box = document.getElementById('surpriseBox');
+      const hint = document.getElementById('boxHintText');
+      const reveal = document.getElementById('surpriseRevealZone');
+
+      // Pop / Bounce animation when tapped
+      box.style.transform = 'scale(1.3) rotate(-12deg)';
+
+      setTimeout(() => {
+        box.style.display = 'none';
+        hint.style.display = 'none';
+        reveal.style.display = 'block';
+
+        // Festive multi-burst confetti
+        confetti({
+          particleCount: 160,
+          spread: 90,
+          origin: { y: 0.55 },
+          colors: ['#ffffff', '#ff9fbd', '#f0d9a7', '#ff6f9f', '#ffd700']
+        });
+
+        setTimeout(() => {
+          confetti({
+            particleCount: 90,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 90,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+        }, 250);
+
+      }, 350);
+
+    }
+
+
+    /* =====================================================
+       8. CANDLE
+       ===================================================== */
+
+    let blownOut =
+      false;
+
+
+    function snuffCandle() {
+
+      if (
+        blownOut
+      ) return;
+
+
+      blownOut =
+        true;
+
+
+      document
+        .querySelectorAll(
+          '.flame-target'
+        )
+        .forEach(
+          flame =>
+            flame.classList.add(
+              'flame-extinguished'
+            )
+        );
+
+
+      document.getElementById(
+        'candleStatus'
+      ).innerText =
+        "✨Ameen, Dua Granted, Inshallah  🤲💖";
+
+
+      const blowBtn =
+        document.getElementById(
+          'blowBtn'
+        );
+
+
+      if (blowBtn) {
+
+        blowBtn.style.display =
+          'none';
+
+      }
+
+
+      confetti({
+
+        particleCount: 180,
+
+        spread: 110,
+
+        colors: [
+          '#ffffff',
+          '#ff9fbd',
+          '#f0d9a7',
+          '#ff6f9f'
+        ],
+
+        origin: {
+          y: 0.6
+        }
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
